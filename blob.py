@@ -1,9 +1,13 @@
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 import os
+from dotenv import load_dotenv
 
-connection_string = "DefaultEndpointsProtocol=https;AccountName=mystoragemyname123;AccountKey=HyrwrdWWQm7X8Z5BSzIt4StbjYPX/VFGJ2L+j12B2nkb5ZJbLZG0ElKUT2SP5hxYaGP7W2Oxmo5F+AStCubK3w==;EndpointSuffix=core.windows.net"  #
-container_name = "mycontainer"
-blob_name = "mystoragemyname123"
+# Load environment variables
+load_dotenv()
+
+connection_string = os.getenv("AZURE_CONN_STRING")
+container_name = os.getenv("AZURE_CONTAINER_NAME")
+blob_name = os.getenv("AZURE_BLOB_NAME") 
 directory_path = "Data"
 
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
@@ -20,4 +24,4 @@ for root, dirs, files in os.walk(directory_path):
         with open(file_path, "rb") as data:
             blob_client.upload_blob(data)
 
-        print(f"Datei {file_path} erfolgreich zu {blob_name} hochgeladen!")
+        print(f"File {file_path} successfully uploaded to {blob_name}!")
