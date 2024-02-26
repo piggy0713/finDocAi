@@ -1,0 +1,6 @@
+azure_storage==0.36.0
+langchain
+openai
+python-dotenv
+streamlit
+streamlit_chat
